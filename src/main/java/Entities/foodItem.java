@@ -1,5 +1,7 @@
 package Entities;
 
+import Use_Cases.itemCart;
+
 public class foodItem {
     public String itemName;
     public double itemCost;
@@ -15,5 +17,12 @@ public class foodItem {
 
     public String getItemName () {
         return this.itemName;
+    }
+
+    public void addToItemCart (itemCart cart) {
+        cart.addToCart(this);
+    }
+    public void addToOrder (Order order) {
+        order.addToOrder(this);
     }
 }
