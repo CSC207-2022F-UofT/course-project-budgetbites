@@ -1,7 +1,4 @@
-import Frames.LoginFrame;
-import Frames.OnboardingFrame;
-import Frames.RestaurantListingsFrame;
-import Frames.SingleRestaurant;
+import ui.OnboardingFrame;
 
 public class main{
 

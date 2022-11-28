@@ -31,7 +31,7 @@ Above those features we used Java Swing to create a seamless user flow UI. We ha
 ## SOLID Principles and Clean Architecture
 
 **For implementing clean architecture we have created packaging for each class. That includes their interactor, gateways, request model, Input and Output boundary. We have provided an example of Clean Architecture implementation. Kindly follow the instruction to check out that file.**
-- [ ] Go to `src/main/java/Use_Cases/Filtering/RestaurantFiltering`, which is an example implementation.
+- [ ] Go to `src/main/java/usecases/Filtering/RestaurantFiltering`, which is an example implementation.
 
 
 [//]: # ()
