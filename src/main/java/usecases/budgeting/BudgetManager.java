@@ -10,8 +10,8 @@ public class BudgetManager extends Budget {
      * * like by inputting a new budget in the UI
      * * @param newBudgetSize
      *
-     * @param budget
-     * @param newBudgetSize
+     * @param budget user's budget
+     * @param newBudgetSize the budget the user now wants to change their monthly budget into
      */
     public void adjustMonthlyBudget(Budget budget, double newBudgetSize) {
         if (newBudgetSize < 0) {
@@ -36,8 +36,8 @@ public class BudgetManager extends Budget {
     /**
      * orderedMealsBudget method automatically decreases the user's current budget when an order is placed
      *
-     * @param budget
-     * @param orders
+     * @param budget user's budget
+     * @param orders user's past order
      */
 
     public void orderedMealsBudget (Budget budget, PastOrders orders){

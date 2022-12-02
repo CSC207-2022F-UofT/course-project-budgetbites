@@ -36,8 +36,9 @@ public class budgetEntityTest {
     public void setCurrentBudgetTest() {
 
         Budget budget = new Budget(1000);
-        budget.setCurrentBudget(2000);
+        budget.setCurrentBudget(2003);
 
-        Assertions.assertEquals(2000, budget.getCurrentBudget());
+        Assertions.assertEquals(2003, budget.getCurrentBudget());
     }
+
 }

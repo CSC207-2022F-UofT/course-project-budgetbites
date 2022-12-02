@@ -1,11 +1,13 @@
 //Swami Shriji
 package usecases.login;
-import usecases.MainMongoDB;
+import usecases.LoginDAI;
+import gateways.MainMongoDB;
 
 public class Login {
-    public static boolean loginCheck(String user, String password){
-        if (MainMongoDB.userExists(user)){
-            String correctPassword = (String) MainMongoDB.getUserAttribute(user, "password");
+    private final LoginDAI loginDAI = new MainMongoDB();
+    public boolean loginCheck(String user, String password){
+        if (loginDAI.userExists(user)){
+            String correctPassword = (String) loginDAI.getUserAttribute(user, "password");
             if (password.equals(correctPassword)){
                 return true;
             } else {
@@ -18,7 +20,7 @@ public class Login {
         }
     }
 
-    public static void main(String[] args) {
-        Login.loginCheck("aryangoel24", "goelaryan25");
-    }
+//    public static void main(String[] args) {
+//        Login.loginCheck("aryangoel24", "goelaryan25");
+//    }
 }

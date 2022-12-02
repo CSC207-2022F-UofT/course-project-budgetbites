@@ -1,16 +1,19 @@
 package controllers;
 
-import gateways.RestaurantFilteringGateway;
+import usecases.FilterManagerDAI;
+import gateways.MainMongoDB;
 import usecases.filtering.restaurantfiltering.FilterManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FilterManagerController {
+
+    private final FilterManagerDAI filterManagerDAI = new MainMongoDB();
     private FilterManager restaurantFilters;
 
     public FilterManagerController() {
-        ArrayList<String> restaurants = RestaurantFilteringGateway.getListOfRestaurants();
+        ArrayList<String> restaurants = filterManagerDAI.getAllRestaurants();
         HashMap<String, ArrayList<String>> cuisineFilter = new HashMap<>();
         cuisineFilter.put("Italian",new ArrayList<String>());
         cuisineFilter.put("Chinese",new ArrayList<String>());
@@ -36,9 +39,9 @@ public class FilterManagerController {
         String price;
         String foodType;
         for (String r: restaurants) {
-            cuisine = RestaurantFilteringGateway.getRestaurantCuisine(r);
-            price = RestaurantFilteringGateway.getRestaurantPriceRange(r);
-            foodType = RestaurantFilteringGateway.getRestaurantFoodType(r);
+            cuisine = filterManagerDAI.getRestaurantAttribute(r, "cuisine");
+            price = filterManagerDAI.getRestaurantAttribute(r, "priceRange");
+            foodType = filterManagerDAI.getRestaurantAttribute(r, "foodType");
             cuisineFilter.get(cuisine).add(r);
             foodTypeFilter.get(foodType).add(r);
             priceFilter.get(price).add(r);
@@ -49,7 +52,7 @@ public class FilterManagerController {
 
     public ArrayList<String> getRestaurants(String pricePref, String cuisinePref, String foodTypePref) {
         if (pricePref.equals("No Preference") && cuisinePref.equals("No Preference") && foodTypePref.equals("No Preference")) {
-            return RestaurantFilteringGateway.getListOfRestaurants();
+            return filterManagerDAI.getAllRestaurants();
         } else {
             return restaurantFilters.filter(pricePref, cuisinePref, foodTypePref);
         }

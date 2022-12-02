@@ -83,8 +83,8 @@ public class LogicCode {
                     PastOrders p1 = new PastOrders();
                     Budget b1 = new Budget(initialBudget);
                     User user = new User(firstName, lastName, username, password, p1, b1);
-                    commented out this code for functionality purposes
-                    MainMongoDB.saveUser(user);
+//                    commented out this code for functionality purposes
+//                    MainMongoDB.saveUser(user);
                     return true;
                 } else {
                     // final code should be able to tell the user that this password isn't strong
