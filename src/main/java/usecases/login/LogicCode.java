@@ -72,7 +72,8 @@ public class LogicCode {
      * @param lastName
      * @return boolean
      */
-    public static boolean signUpCheck(String username, String password, String confirmPassword, double initialBudget, String firstName, String lastName) {
+    public static boolean signUpCheck(String username, String password, String confirmPassword,
+                                      double initialBudget, String firstName, String lastName) {
         // help with MainMongoDB
         if (MainMongoDB.userExists(username)) {
             return false;
@@ -82,7 +83,8 @@ public class LogicCode {
                     PastOrders p1 = new PastOrders();
                     Budget b1 = new Budget(initialBudget);
                     User user = new User(firstName, lastName, username, password, p1, b1);
-                    MainMongoDB.saveUser(user);
+//                    commented out this code for functionality purposes
+//                    MainMongoDB.saveUser(user);
                     return true;
                 } else {
                     // final code should be able to tell the user that this password isn't strong
