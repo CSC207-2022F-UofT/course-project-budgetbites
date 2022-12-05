@@ -1,6 +1,4 @@
-package Frames;
-
-import ui.OnboardingFrame;
+package ui;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -80,7 +78,7 @@ public class UserPageFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 exit();
-                OnboardingFrame onboardingFrame = new OnboardingFrame();
+                RestaurantListFrame restaurantListFrame = new RestaurantListFrame();
             }
         });
         panel.add(backButton);
