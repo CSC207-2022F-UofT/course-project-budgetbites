@@ -1,4 +1,4 @@
-package Frames;
+package ui;
 
 import gateways.MainMongoDB;
 import usecases.BudgetDAI;

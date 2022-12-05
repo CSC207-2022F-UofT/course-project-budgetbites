@@ -15,6 +15,8 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
     private static JLabel userMealLabel;
     private static JComboBox userMealText;
     private static JButton submitButton;
+    private static JButton profileButton;
+    private static JButton backButton;
 
     private RestaurantFilteringPresenter restaurantPresenter;
 
@@ -62,11 +64,36 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
         panel.add(userMealText);
 
 
+        backButton = new JButton("Back");
+        backButton.setBounds(10, 30, 160, 25);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                OnboardingFrame onboardingFrame = new OnboardingFrame();
+            }
+        });
+        panel.add(backButton);
+
+
         // Submit button.
         submitButton = new JButton("Submit Preferences");
         submitButton.setBounds(10, 110, 160, 25);
         submitButton.addActionListener(this);
         panel.add(submitButton);
+        this.add(panel);
+
+        // Profile button.
+        profileButton = new JButton("Profile");
+        profileButton.setBounds(10, 190, 160, 25);
+        profileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                UserPageFrame userPageFrame = new UserPageFrame();
+            }
+        });
+        panel.add(profileButton);
         this.add(panel);
 
         restaurantPresenter = new RestaurantsPanel();

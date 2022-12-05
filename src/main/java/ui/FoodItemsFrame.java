@@ -13,6 +13,7 @@ public class FoodItemsFrame extends JFrame implements ActionListener {
     private static JButton submitButton;
     private static JButton addToItemCartButton;
     private static JButton itemCartButton;
+    private static JButton backButton;
     private FoodItemsPresenter foodItemsPresenter;
 
     public FoodItemsFrame(String restaurantName) {
@@ -42,6 +43,17 @@ public class FoodItemsFrame extends JFrame implements ActionListener {
         submitButton.addActionListener(this);
         panel.add(submitButton);
         this.add(panel);
+
+        backButton = new JButton("Back");
+        backButton.setBounds(10, 200, 160, 25);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                RestaurantListFrame restaurantListFrame = new RestaurantListFrame();
+            }
+        });
+        panel.add(backButton);
 
         foodItemsPresenter = new FoodItemsPanel(restaurantName);
         foodItemsPresenter.allFoods();
@@ -74,5 +86,10 @@ public class FoodItemsFrame extends JFrame implements ActionListener {
             foodItemsPresenter.updateFoods((String) userPriceText.getSelectedItem());
             this.validate();
         }
+    }
+
+    private void exit() {
+        this.setVisible(false);
+        this.dispose();
     }
 }
