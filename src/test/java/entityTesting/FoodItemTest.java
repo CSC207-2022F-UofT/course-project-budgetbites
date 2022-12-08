@@ -6,11 +6,9 @@ import org.junit.jupiter.api.Assertions;
 
 public class FoodItemTest {
 
-    // Test cases for the getter functionalities of the foodItems Entity
-    //
-
-
-    // Test case for the getItemCost getter function
+    /**
+     * Tests the FoodItem Entity by calling an item and seeing if it returns the accurate corresponding price
+     */
     @Test
     public void getItemCostTest() {
         FoodItem foodItem = new FoodItem("Pizza", 10);
@@ -18,7 +16,10 @@ public class FoodItemTest {
         Assertions.assertEquals(itemCost, foodItem.getItemCost());
     }
 
-    //Test case for the getItemName getter function
+
+    /**
+     * Tests for getItemName through a getter function
+     */
     @Test
     public void getItemNameTest() {
         FoodItem foodItem = new FoodItem("Pizza", 24);

@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Assertions;
 
 public class UserTest {
 
-    // Test cases for the getter functionalities of the user Entity
-
-
-    //Test case for the getFirstName getter function
+    /**
+     * Tests getFirstName getter function to see if correct First Name is called and outputted
+     */
     @Test
     public void getFirstNameTest() {
         User newUser = new User("Darpan", "Mishra", "darmish", "pass",
@@ -20,7 +19,9 @@ public class UserTest {
         Assertions.assertEquals(firstName, newUser.getFirstName());
     }
 
-    // Test case for the getLastName getter funciton
+    /**
+     * Tests getLastName getter function to see if correct Last Name is called and outputted
+     */
     @Test
     public void getLastNameTest() {
         User newUser = new User("Darpan", "Mishra", "darmish", "pass",
@@ -29,8 +30,9 @@ public class UserTest {
         Assertions.assertEquals(lastName, newUser.getLastName());
     }
 
-
-    // Test for the getUsername getter function
+    /**
+     * Tests getUsername getter function to see if correct Username is called and outputted
+     */
     @Test
     public void getUsernameTest() {
         User newUser = new User("Darpan", "Mishra", "darmish", "pass",
@@ -39,7 +41,9 @@ public class UserTest {
         Assertions.assertEquals(username, newUser.getUsername());
     }
 
-    //Test for the getPassword getter function
+    /**
+     * Tests getPassowrd getter function to see if correct password is called and outputted
+     */
     @Test
     public void getPasswordTest() {
         User newUser = new User("Darpan", "Mishra", "darmish", "pass",
@@ -48,7 +52,9 @@ public class UserTest {
         Assertions.assertEquals(password, newUser.getPassword());
     }
 
-    // Test case for the getPastOrders getter function
+    /**
+     * Tests getPastOrders getter function to see if correct past orders is called and outputted
+     */
     @Test
     public void getPastOrdersTest() {
         PastOrders pastOrders;
@@ -62,7 +68,9 @@ public class UserTest {
         Assertions.assertEquals(pastOrders, newUser.getPastOrders());
     }
 
-    // Test case for the getBudget getter function
+    /**
+     * Tests getBudget getter function to see if correct budget is called and outputted
+     */
     @Test
     public void getBudgetTest() {
         PastOrders pastOrders;
@@ -75,5 +83,4 @@ public class UserTest {
                 pastOrders, budget);
         Assertions.assertEquals(budget, newUser.getBudget());
     }
-    //
 }

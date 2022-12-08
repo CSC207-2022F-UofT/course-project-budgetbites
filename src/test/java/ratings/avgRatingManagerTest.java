@@ -5,7 +5,9 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class avgRatingManagerTest {
+    /*
 
+     */
     @Test
     public void avgRatingManagerAverage(){
 

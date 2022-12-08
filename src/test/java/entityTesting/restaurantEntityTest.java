@@ -16,6 +16,9 @@ public class restaurantEntityTest {
     private Restaurant restaurant;
     private ArrayList<FoodItem> menu;
 
+    /**
+     * initializes all instance attributes with values
+     */
     @Before
     public void init () {
         FoodItem f1 = new FoodItem("Chicken Shawarma", 8);
@@ -27,6 +30,9 @@ public class restaurantEntityTest {
                 "Middle-East", "Lunch", 5, menu);
     }
 
+    /**
+     * Tests if correct price range is outputted from a placed order
+     */
     @Test
     public void getPriceRangeTest() {
         String price = restaurant.getPriceRange();
@@ -34,6 +40,9 @@ public class restaurantEntityTest {
         Assertions.assertEquals("Intermediate", price);
     }
 
+    /**
+     * Tests if correct cuisine is outputted from a placed order
+     */
     @Test
     public void getCuisineTest() {
         String cuisine = restaurant.getCuisine();
@@ -41,6 +50,9 @@ public class restaurantEntityTest {
         Assertions.assertEquals("Middle-East", cuisine);
     }
 
+    /**
+     * Tests if correct food type is outputted from a placed order
+     */
     @Test
     public void getFoodType() {
 
@@ -49,6 +61,9 @@ public class restaurantEntityTest {
         Assertions.assertEquals("Lunch", foodType);
     }
 
+    /**
+     * Tests if correct restaurant name is outputted from a placed order
+     */
     @Test
     public void getRestaurantNameTest() {
         String name = restaurant.getRestaurantName();
@@ -56,6 +71,9 @@ public class restaurantEntityTest {
         Assertions.assertEquals("Food from East", name);
     }
 
+    /**
+     * Tests if correct avaerage rating is outputted from a placed order
+     */
     @Test
     public void getAvgRatingTest() {
 
@@ -64,6 +82,9 @@ public class restaurantEntityTest {
         Assertions.assertEquals(5, rating);
     }
 
+    /**
+     * Tests if correct menu is outputted from a placed order
+     */
     @Test
     public void getMenuTest() {
         Assertions.assertEquals(restaurant.getMenu(), menu);

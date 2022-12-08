@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RestaurantFactoryTest {
+    /**
+     * Initialize  all necessary instance attributes needed for the following tests
+     */
     private final String restaurantName = "Food from East";
     private final String cuisine = "Middle-East";
     private final String priceRange = "Cheap";
@@ -23,7 +26,10 @@ public class RestaurantFactoryTest {
             new FoodItem("Chicken Shawarma", 8), new FoodItem("Falafel", 4),
             new FoodItem("Hummus with Pita", 5)));
 
-
+    /**
+     * Tests getter method for restuarant and ensures restaurant na,e, price range, cuisine, foodType, avgRating
+     * and menu are returned accurately
+     */
     @Test
     public void getRestaurantTest() {
         Restaurant restaurant = RestaurantFactory.getRestaurant(restaurantName, priceRange,
