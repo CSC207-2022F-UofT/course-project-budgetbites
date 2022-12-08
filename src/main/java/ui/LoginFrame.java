@@ -58,7 +58,7 @@ public class LoginFrame extends JFrame{
                 String password = passwordText.getText();
                 if (login.loginCheck(user, password) == 2){
                     exit();
-                    RestaurantListFrame restaurantListFrame = new RestaurantListFrame();
+                    RestaurantListFrame restaurantListFrame = new RestaurantListFrame(user);
                     successLogin.setText("Logging In...");
 //                    System.out.println("Logging In...");
                 } else if (login.loginCheck(user, password) == 1) {

@@ -4,8 +4,10 @@ import entities.PastOrders;
 import gateways.MainMongoDB;
 import org.junit.jupiter.api.Assertions;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import usecases.SuggestionToUserDAI;
 import usecases.foodsuggestions.SuggestionToUser;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -13,18 +15,26 @@ import java.util.List;
 
 public class SuggestionToUserTest {
 
-    private final SuggestionToUserDAI suggestionToUserDAI = new MainMongoDB();
-    private final SuggestionToUser suggestionToUser = new SuggestionToUser();
+    private final SuggestionToUserDAI suggestionToUserDatabase = new MainMongoDB();
+    private SuggestionToUser suggestionToUserInteractor = new SuggestionToUser(suggestionToUserDatabase);
 
     private String testUser = "aryangoel24";
     private String testUser2 = "darpanmi";
 
+    //    @BeforeEach
+//    public void setUp() {
+//        FoodSuggestionsController foodSuggestionsController = new FoodSuggestionsController(suggestionToUserInteractor);
+//        userSuggestionFrame foodSuggestionViewer = new userSuggestionFrame(foodSuggestionsController);
+//        IUserSuggestion.Presenter foodSuggestionsPresenter = new FoodSuggestionPresenter(foodSuggestionViewer);
+//        suggestionToUserDatabase = new MainMongoDB();
+//        suggestionToUserInteractor = new SuggestionToUser(suggestionToUserDatabase, foodSuggestionsPresenter);
+//    }
     @Test
     public void testSortingHashMapMongo() {
-        PastOrders testOrder = suggestionToUserDAI.findPastOrders(testUser);
+        PastOrders testOrder = suggestionToUserDatabase.findPastOrders(testUser);
         assert testOrder != null;
         final HashMap<String, Order> pastOrdersMap = testOrder.getPastOrdersMap();
-        LinkedHashMap<FoodItem, Integer> testSortingHashMap = suggestionToUser.sortingHashMap(suggestionToUser.itemCount(testOrder, pastOrdersMap));
+        LinkedHashMap<FoodItem, Integer> testSortingHashMap = suggestionToUserInteractor.sortingHashMap(suggestionToUserInteractor.itemCount(testOrder, pastOrdersMap));
         List<Integer> expectedValues = new ArrayList<Integer>(testSortingHashMap.values());
         List<Integer> expectedSortedListValue = new ArrayList<>();
         expectedSortedListValue.add(3);
@@ -44,17 +54,17 @@ public class SuggestionToUserTest {
         LinkedHashMap<FoodItem, Integer> expectedList = new LinkedHashMap<>();
         expectedList.put(foodItem2, 2);
         expectedList.put(foodItem1, 1);
-        Assertions.assertEquals(suggestionToUser.sortingHashMap(testCountPopulatedItem), expectedList);
+        Assertions.assertEquals(suggestionToUserInteractor.sortingHashMap(testCountPopulatedItem), expectedList);
     }
 
     @Test
     public void testGetFinalSuggestion() {
-        PastOrders testOrder = suggestionToUserDAI.findPastOrders(testUser);
+        PastOrders testOrder = suggestionToUserDatabase.findPastOrders(testUser);
         assert testOrder != null;
         final HashMap<String, Order> pastOrdersMap = testOrder.getPastOrdersMap();
-        HashMap<FoodItem, Integer> currentItemCount = suggestionToUser.itemCount(testOrder, pastOrdersMap);
-        LinkedHashMap<FoodItem, Integer> sortedList = suggestionToUser.sortingHashMap(currentItemCount);
-        ArrayList<String> actualList = suggestionToUser.getFinalSuggestion(testUser, sortedList);
+        HashMap<FoodItem, Integer> currentItemCount = suggestionToUserInteractor.itemCount(testOrder, pastOrdersMap);
+        LinkedHashMap<FoodItem, Integer> sortedList = suggestionToUserInteractor.sortingHashMap(currentItemCount);
+        ArrayList<String> actualList = suggestionToUserInteractor.getFinalSuggestion(testUser, sortedList);
         ArrayList<String> expectedList = new ArrayList<>();
         expectedList.add("Falafel Wrap");
         expectedList.add("Chicken Shawarma");
@@ -66,14 +76,14 @@ public class SuggestionToUserTest {
         ArrayList<String> expectedList = new ArrayList<>();
         expectedList.add("Falafel Wrap");
         expectedList.add("Chicken Shawarma");
-        ArrayList<String> actualList = suggestionToUser.getSuggestionToUser(testUser);
+        ArrayList<String> actualList = suggestionToUserInteractor.getSuggestionToUser(testUser);
         Assertions.assertEquals(actualList, expectedList);
     }
 
     @Test
     public void testGetSuggestionToUserNoItem() {
         ArrayList<String> expectedList = new ArrayList<>();
-        ArrayList<String> actualList = suggestionToUser.getSuggestionToUser(testUser2);
+        ArrayList<String> actualList = suggestionToUserInteractor.getSuggestionToUser(testUser2);
         Assertions.assertEquals(actualList, expectedList);
     }
 

@@ -115,24 +115,20 @@ public class SignUpFrame extends JFrame{
 
                 User signupUser = new User(firstName, lastName, user, password, new PastOrders(), new Budget(parseDouble(budget)));
 
-                if (logicCode.signUpCheck(user, password, confirmPassword, parseDouble(budget),
-                        firstName, lastName) == 3){
+                if (logicCode.signUpCheck(user, password, confirmPassword) == 3){
                     // saves the user
                     loginDAI.saveUser(signupUser);
                     // prints a success message to the user
 //                    System.out.println("Success");
                     // will go to next page
                     exit();
-                    RestaurantListFrame restaurantListFrame = new RestaurantListFrame();
+                    RestaurantListFrame restaurantListFrame = new RestaurantListFrame(user);
 
-                } else if (logicCode.signUpCheck(user, password, confirmPassword, parseDouble(budget),
-                        firstName, lastName) == 2) {
+                } else if (logicCode.signUpCheck(user, password, confirmPassword) == 2) {
                     successSignUp.setText("Password is not strong enough");
-                } else if (logicCode.signUpCheck(user, password, confirmPassword, parseDouble(budget),
-                        firstName, lastName) == 1) {
+                } else if (logicCode.signUpCheck(user, password, confirmPassword) == 1) {
                     successSignUp.setText("Passwords do not match");
-                }else if (logicCode.signUpCheck(user, password, confirmPassword, parseDouble(budget),
-                        firstName, lastName) == 0) {
+                }else if (logicCode.signUpCheck(user, password, confirmPassword) == 0) {
                     successSignUp.setText("Username already exists.");
                 }
 

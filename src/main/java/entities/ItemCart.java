@@ -18,6 +18,44 @@ public class ItemCart {
         currentOrder.add(item);
     }
 
+    public void removeFromCart (FoodItem item) {
+        currentOrder.remove(item);
+        }
+
+    public CurrentOrderIterator createIterator () {
+        return new CurrentOrderIterator(this.getCurrentOrder());
+    }
+
+    public ArrayList<String> getFoodNamesByIterator(CurrentOrderIterator currentOrderIterator) {
+        ArrayList<String> itemNames = new ArrayList<>();
+        while (currentOrderIterator.hasNext()) {
+            String name = currentOrderIterator.next().getItemName();
+            itemNames.add(name);
+        }
+
+        return itemNames;
+    }
+
+    public double getTotalCostByIterator (CurrentOrderIterator currentOrderIterator) {
+        double totalCost = 0;
+        while (currentOrderIterator.hasNext()) {
+            double price = currentOrderIterator.next().getItemCost();
+            totalCost += price;
+        }
+
+        return totalCost;
+    }
+
+    public ArrayList<String> getFoodNames() {
+        CurrentOrderIterator currentOrderIterator = this.createIterator();
+        return this.getFoodNamesByIterator(currentOrderIterator);
+    }
+
+    public double getTotalCost() {
+        CurrentOrderIterator currentOrderIterator = this.createIterator();
+        return this.getTotalCostByIterator(currentOrderIterator);
+    }
+
     public Order makeOrder (PastOrders userPastOrders, String restaurantName) {
         String dateTime = LocalDateTime.now().toString();
         Order tempOrder = new Order(dateTime, restaurantName);

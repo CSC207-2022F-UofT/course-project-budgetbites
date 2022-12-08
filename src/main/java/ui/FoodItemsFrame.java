@@ -1,5 +1,6 @@
 package ui;
 
+import controllers.ItemCartAndOrderController;
 import presenters.FoodItemsPresenter;
 
 import javax.swing.*;
@@ -15,8 +16,15 @@ public class FoodItemsFrame extends JFrame implements ActionListener {
     private static JButton itemCartButton;
     private static JButton backButton;
     private FoodItemsPresenter foodItemsPresenter;
+    private ItemCartAndOrderController itemCartAndOrderController;
+    private String currentUser;
+    private String restaurantName;
 
-    public FoodItemsFrame(String restaurantName) {
+    public FoodItemsFrame(String restaurantName, String currentUser) {
+
+        itemCartAndOrderController = new ItemCartAndOrderController(restaurantName);
+        this.restaurantName = restaurantName;
+        this.currentUser = currentUser;
 
         JPanel panel = new JPanel();
         JPanel bottom = new JPanel();
@@ -45,12 +53,12 @@ public class FoodItemsFrame extends JFrame implements ActionListener {
         this.add(panel);
 
         backButton = new JButton("Back");
-        backButton.setBounds(10, 200, 160, 25);
+        backButton.setBounds(10, 150, 165, 25);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 exit();
-                RestaurantListFrame restaurantListFrame = new RestaurantListFrame();
+                RestaurantListFrame restaurantListFrame = new RestaurantListFrame(currentUser);
             }
         });
         panel.add(backButton);
@@ -75,9 +83,9 @@ public class FoodItemsFrame extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args) {
-        new FoodItemsFrame("Food from East");
-    }
+    /*public static void main(String[] args) {
+        new FoodItemsFrame("Food from East", this.currentUser);
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -85,9 +93,15 @@ public class FoodItemsFrame extends JFrame implements ActionListener {
         if (obj == submitButton) {
             foodItemsPresenter.updateFoods((String) userPriceText.getSelectedItem());
             this.validate();
+        }else if (obj == addToItemCartButton) {
+            JList<String> selection = foodItemsPresenter.getList();
+            String choice = selection.getSelectedValue();
+            itemCartAndOrderController.addToItemCart(choice);
+        }else if (obj == itemCartButton) {
+            exit();
+            new ItemCartFrame(itemCartAndOrderController, restaurantName, currentUser);
         }
     }
-
     private void exit() {
         this.setVisible(false);
         this.dispose();

@@ -11,12 +11,12 @@ public class Login {
             if (password.equals(correctPassword)){
                 return 2;
             } else {
-                // final submission on gui should be able to say "Incorrect Password"
+                // incorrect Password
                 return 1;
             }
         } else{
+            // user doesn't exist
             return 0;
-            //System.out.println("username doesn't exist");
         }
     }
 

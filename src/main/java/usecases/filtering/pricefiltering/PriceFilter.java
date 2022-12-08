@@ -27,7 +27,7 @@ public class PriceFilter {
         filter.put("$25+", new ArrayList<String>());
 
         for (FoodItem food : menu) {
-            String name = food.getItemName() + " | Price: $" + food.getItemCost();
+            String name = food.getItemName() + " - Price: $" + food.getItemCost();
             if (food.getItemCost() < 5) {
                 filter.get("$0 to $5").add(name);
             } else if (food.getItemCost() < 10) {

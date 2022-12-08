@@ -3,14 +3,30 @@ import entities.Budget;
 import entities.FoodItem;
 import entities.Order;
 import entities.PastOrders;
-import gateways.MainMongoDB;
+import presenters.FoodSuggestionPresenter;
 import usecases.SuggestionToUserDAI;
 
 import java.util.*;
 
 public class SuggestionToUser {
 
-    private final SuggestionToUserDAI suggestionToUserDAI = new MainMongoDB();
+    private SuggestionToUserDAI suggestionToUserDAI;
+    private FoodSuggestionPresenter foodSuggestionsPresenter;
+
+    public SuggestionToUser(SuggestionToUserDAI mongoDAI) {
+        this.suggestionToUserDAI = mongoDAI;
+    }
+
+    public void setPresenter(FoodSuggestionPresenter foodSuggestionsPresenter){
+        this.foodSuggestionsPresenter = foodSuggestionsPresenter;
+    }
+
+
+
+    public void toPresenter(String username) {
+        ArrayList<String> finalSuggestion = getSuggestionToUser(username);
+        foodSuggestionsPresenter.presentData(finalSuggestion);
+    }
 
     /**
      * Takes the userName and returns the items that can be ordered again based ont the

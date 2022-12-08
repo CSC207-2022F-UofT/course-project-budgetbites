@@ -14,13 +14,14 @@ import java.util.Arrays;
 public class restaurantEntityTest {
 
     private Restaurant restaurant;
+    private ArrayList<FoodItem> menu;
 
     @Before
     public void init () {
         FoodItem f1 = new FoodItem("Chicken Shawarma", 8);
         FoodItem f2 = new FoodItem("Hummus with Pita", 5);
         FoodItem f3 = new FoodItem("Falafel", 4);
-        ArrayList<FoodItem> menu = new ArrayList<>(Arrays.asList(f1, f2, f3));
+        menu = new ArrayList<>(Arrays.asList(f1, f2, f3));
 
         restaurant = new Restaurant("Food from East", "Intermediate",
                 "Middle-East", "Lunch", 5, menu);
@@ -61,5 +62,10 @@ public class restaurantEntityTest {
         double rating = restaurant.getAvgRating();
 
         Assertions.assertEquals(5, rating);
+    }
+
+    @Test
+    public void getMenuTest() {
+        Assertions.assertEquals(restaurant.getMenu(), menu);
     }
 }

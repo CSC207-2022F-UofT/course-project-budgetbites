@@ -50,7 +50,7 @@ public class PastOrders {
     }
 
     public void addOrder (Order order) {
-        this.pastOrdersMap.put(order.dateOrdered, order);
-        this.lastOrdered = order.dateOrdered;
+        this.pastOrdersMap.put(order.getDateOrdered(), order);
+        this.lastOrdered = order.getDateOrdered();
     }
 }

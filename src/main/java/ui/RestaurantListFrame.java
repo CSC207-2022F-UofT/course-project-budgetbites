@@ -1,5 +1,6 @@
 package ui;
 
+import entities.User;
 import presenters.RestaurantFilteringPresenter;
 
 import javax.swing.*;
@@ -13,17 +14,20 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
     private static JLabel userCuisineLabel;
     private static JComboBox UserCuisineText;
     private static JLabel userMealLabel;
+    private static JButton profileButton;
     private static JComboBox userMealText;
     private static JButton submitButton;
-    private static JButton profileButton;
     private static JButton backButton;
 
     private RestaurantFilteringPresenter restaurantPresenter;
 
     private static JButton pickRestaurant;
     private static JPanel bottom;
+    private String currentUser;
 
-    public RestaurantListFrame() {
+    public RestaurantListFrame(String currentUser) {
+
+        this.currentUser = currentUser;
 
         JPanel panel = new JPanel();
         this.setTitle("BudgetBites-UserPreference");
@@ -38,7 +42,7 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
         userPriceLabel.setBounds(10, 20, 120, 25);
         panel.add(userPriceLabel);
         // combobox for the user to choose their price preference
-        String[] priceRanges = {"No Preference", "Cheap", "Intermediate", "Expensive"};
+        String[] priceRanges = {"No Preference", "Cheap [$5-$10]", "Intermediate [$10-$20]", "Expensive [$20+]"};
         userPriceText = new JComboBox(priceRanges);
         userPriceText.setBounds(140, 20 , 165, 25);
         panel.add(userPriceText);
@@ -48,7 +52,7 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
         userCuisineLabel.setBounds(10, 50, 120, 25);
         panel.add(userCuisineLabel);
         // combobox for the user to choose their cuisine preference
-        String[] cuisines = {"No Preference", "Italian", "Chinese", "Thai", "French", "Arabic", "Mexican", "Indian", "Middle-East"};
+        String[] cuisines = {"No Preference", "Italian", "Chinese", "Mexican", "Indian", "Middle-East"};
         UserCuisineText = new JComboBox(cuisines);
         UserCuisineText.setBounds(140, 50 , 165, 25);
         panel.add(UserCuisineText);
@@ -90,11 +94,22 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 exit();
-                UserPageFrame userPageFrame = new UserPageFrame();
+                UserPageFrame userPageFrame = new UserPageFrame(currentUser);
             }
         });
         panel.add(profileButton);
         this.add(panel);
+
+        profileButton = new JButton("Profile");
+        profileButton.setBounds(10, 140, 165, 25);
+        profileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                UserPageFrame userPageFrame = new UserPageFrame(currentUser);
+            }
+        });
+        panel.add(profileButton);
 
         restaurantPresenter = new RestaurantsPanel();
         restaurantPresenter.allRestaurants();
@@ -113,7 +128,7 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new RestaurantListFrame();
+        new RestaurantListFrame("persistentUser");
     }
 
     @Override
@@ -126,7 +141,7 @@ public class RestaurantListFrame extends JFrame implements ActionListener {
             JList<String> selection = restaurantPresenter.getList();
             String restaurant = selection.getSelectedValue();
             exit();
-            new FoodItemsFrame(restaurant);
+            new FoodItemsFrame(restaurant, this.currentUser);
         }
     }
 

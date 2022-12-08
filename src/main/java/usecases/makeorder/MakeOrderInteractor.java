@@ -4,11 +4,18 @@ import entities.FoodItem;
 import entities.ItemCart;
 import entities.Order;
 import entities.PastOrders;
+import gateways.MainMongoDB;
+import usecases.MakeOrderDAI;
+
 
 import java.time.LocalDateTime;
 
 public class MakeOrderInteractor {
-    public Order makeNewOrder (PastOrders userPastOrders, String restaurantName, ItemCart itemCart) {
-        return itemCart.makeOrder(userPastOrders, restaurantName);
+    private final MakeOrderDAI makeOrderDAI = new MainMongoDB();
+    public Order makeNewOrder (String restaurantName, ItemCart itemCart, String username) {
+        PastOrders pastOrders = makeOrderDAI.findPastOrders(username);
+        Order order = itemCart.makeOrder(pastOrders, restaurantName);
+        makeOrderDAI.addToPastOrders(username, order);
+        return order;
     }
 }

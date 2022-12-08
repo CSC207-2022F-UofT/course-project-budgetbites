@@ -1,5 +1,6 @@
 package ui;
 
+import ui.UserPageFrame;
 import gateways.MainMongoDB;
 import usecases.BudgetDAI;
 import entities.Budget;
@@ -24,10 +25,12 @@ public class UserChangeBudgetFrame extends JFrame{
     private static JButton enterButton;
     private static JButton backButton;
     private static JLabel successChange;
+    private String currentUser;
 
-    public UserChangeBudgetFrame() {
+    public UserChangeBudgetFrame(String currentUser) {
 
         JPanel panel = new JPanel();
+        this.currentUser = currentUser;
         this.setTitle("Change Budget");
         this.setSize(420, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +39,7 @@ public class UserChangeBudgetFrame extends JFrame{
         panel.setLayout(null);
 
 
-        enterUserNameLabel = new JLabel("Enter Your UTOid:");
+        enterUserNameLabel = new JLabel("Enter Your UTORid:");
         enterUserNameLabel.setBounds(10, 20, 200, 25);
         panel.add(enterUserNameLabel);
         // text field for the user to input their username
@@ -66,25 +69,25 @@ public class UserChangeBudgetFrame extends JFrame{
         enterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exit();
-                UserPageFrame userPageFrame = new UserPageFrame();
                 String userName = userNameText.getText();
-                String budget = budgetText.getText();
-                String confirmBudget = confirmBudgetText.getText();
-
+                double budget = Double.parseDouble(budgetText.getText());
+                double confirmBudget = Double.parseDouble(confirmBudgetText.getText());
 
                 if (budgetDAI.userExists(userName)) {
-                    if (BudgetManager.newBudgetConfirm(parseDouble(budget), parseDouble(confirmBudget))) {
-                        Budget userBudget = (Budget) budgetDAI.getUserAttribute(userName, "budget");
-                        BudgetManager.adjustMonthlyBudget(userBudget, (parseDouble(budget)));
-                        budgetDAI.updateAttributeByUsername(userName, "budget", userBudget);
-                    } else {
-                        System.out.println("Invalid Inputs, please enter values again.");
-                    }
-                } else
-                    System.out.println("User does not exist");
-            }
-        });
+                        if (BudgetManager.newBudgetConfirm(budget, confirmBudget)) {
+                            Budget userBudget = (Budget) budgetDAI.getUserAttribute(userName, "budget");
+                            BudgetManager.adjustMonthlyBudget(userBudget, budget);
+                            budgetDAI.updateAttributeByUsername(userName, "budget", userBudget);
+                            successChange.setText("Budget Updated");
+                            exit();
+                            UserPageFrame userPageFrame = new UserPageFrame(currentUser);
+                        } else {
+                            successChange.setText("Invalid Inputs, please enter values again.");
+                        }
+                    } else
+                        successChange.setText("User does not exist");
+                }
+            });
 
         panel.add(enterButton);
 
@@ -94,13 +97,13 @@ public class UserChangeBudgetFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 exit();
-                UserPageFrame userPageFrame = new UserPageFrame();
+                UserPageFrame userPageFrame = new UserPageFrame(currentUser);
             }
         });
         panel.add(backButton);
 
         successChange = new JLabel();
-        successChange.setBounds(10, 110, 300, 25);
+        successChange.setBounds(10, 180, 300, 25);
         panel.add(successChange);
 
 
