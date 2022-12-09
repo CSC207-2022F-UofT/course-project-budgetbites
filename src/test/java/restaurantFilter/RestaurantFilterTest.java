@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RestaurantFilterTest {
-
+    /**
+     * Creates ArrayList with cuisine, Food Type, and expense
+     */
     private ArrayList<String> allRestaurants = new ArrayList<>(Arrays.asList(
             "Italian Breakfast Cheap", "Chinese Lunch Cheap", "Thai Dinner Expensive", "French Lunch Intermediate",
             "Arabic Snack Cheap", "Indian Dinner Intermediate", "Middle-East Lunch Expensive", "Chinese Snack Expensive",
@@ -86,6 +88,9 @@ public class RestaurantFilterTest {
         return new RestaurantFilter(cuisineFilter, foodTypeFilter, priceFilter);
     }
 
+    /**
+     * Tests if the filter manager works for one cuisine preference
+     */
     @Test
     public void filterManagerOneCuisinePreference() {
         ArrayList<String> obj = new ArrayList<String>(
@@ -94,6 +99,9 @@ public class RestaurantFilterTest {
         Assertions.assertEquals(obj, restaurantFilter.filter("No Preference", "Chinese", "No Preference", allRestaurants));
     }
 
+    /**
+     * Tests if the filter manager works for one price preference
+     */
     @Test
     public void filterManagerOnePricePreference() {
         ArrayList<String> obj = new ArrayList<String>(
@@ -102,6 +110,9 @@ public class RestaurantFilterTest {
         Assertions.assertEquals(obj, restaurantFilter.filter("Cheap", "No Preference", "No Preference", allRestaurants));
     }
 
+    /**
+     * Tests if the filter manager works for one food type preference
+     */
     @Test
     public void filterManagerOneFoodTypePreference() {
         ArrayList<String> obj = new ArrayList<String>(
@@ -110,6 +121,9 @@ public class RestaurantFilterTest {
         Assertions.assertEquals(obj, restaurantFilter.filter("No Preference", "No Preference", "Lunch", allRestaurants));
     }
 
+    /**
+     * Tests if the filter manager works for food type and price preferences
+     */
     @Test
     public void filterManagerPriceFoodTypePreference() {
         ArrayList<String> obj = new ArrayList<String>(
@@ -118,6 +132,9 @@ public class RestaurantFilterTest {
         Assertions.assertEquals(obj, restaurantFilter.filter("Intermediate", "No Preference", "Breakfast", allRestaurants));
     }
 
+    /**
+     * Tests if the filter manager works for cuisine and price preferences
+     */
     @Test
     public void filterManagerPriceCuisinePreference() {
         ArrayList<String> obj = new ArrayList<String>(
@@ -126,6 +143,9 @@ public class RestaurantFilterTest {
         Assertions.assertEquals(obj, restaurantFilter.filter("Expensive", "Thai", "No Preference", allRestaurants));
     }
 
+    /**
+     * Tests if the filter manager works for food type and cuisine preferences
+     */
     @Test
     public void filterManagerFoodTypeCuisinePreference() {
         ArrayList<String> obj = new ArrayList<String>(
@@ -134,6 +154,9 @@ public class RestaurantFilterTest {
         Assertions.assertEquals(obj, restaurantFilter.filter("No Preference", "French", "Lunch", allRestaurants));
     }
 
+    /**
+     * Tests if the filter manager works for all preferences
+     */
     @Test
     public void filterManagerAllPreference() {
         ArrayList<String> obj = new ArrayList<String>(

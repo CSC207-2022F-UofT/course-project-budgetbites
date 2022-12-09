@@ -20,6 +20,9 @@ public class SuggestionToUserTest {
     private String testUser = "aryangoel24";
     private String testUser2 = "darpanmi";
 
+    /**
+     * Tests the Sorting Has map in mongo my looking at pastOrder
+     */
     @Test
     public void testSortingHashMapMongo() {
         PastOrders testOrder = suggestionToUserDatabase.findPastOrders(testUser);
@@ -35,6 +38,9 @@ public class SuggestionToUserTest {
         Assertions.assertEquals(expectedValues, expectedSortedListValue);
     }
 
+    /**
+     * Tests local hashmap by using the suggestionToUserInteractor
+     */
     @Test
     public void testSortingHashMapLocal() {
         HashMap<FoodItem, Integer> testCountPopulatedItem = new HashMap<>();
@@ -48,6 +54,9 @@ public class SuggestionToUserTest {
         Assertions.assertEquals(suggestionToUserInteractor.sortingHashMap(testCountPopulatedItem), expectedList);
     }
 
+    /**
+     * This tests ensures to create the final suggestion collection
+     */
     @Test
     public void testGetFinalSuggestion() {
         PastOrders testOrder = suggestionToUserDatabase.findPastOrders(testUser);
@@ -62,6 +71,9 @@ public class SuggestionToUserTest {
         Assertions.assertEquals(actualList, expectedList);
     }
 
+    /**
+     * This tests send the accurate food suggestions to the user
+     */
     @Test
     public void testGetSuggestionToUser() {
         ArrayList<String> expectedList = new ArrayList<>();
@@ -71,6 +83,9 @@ public class SuggestionToUserTest {
         Assertions.assertEquals(actualList, expectedList);
     }
 
+    /**
+     * This tests if not information is given by the user to return no items back
+     */
     @Test
     public void testGetSuggestionToUserNoItem() {
         ArrayList<String> expectedList = new ArrayList<>();
@@ -79,5 +94,4 @@ public class SuggestionToUserTest {
         ArrayList<String> actualList = suggestionToUserInteractor.getSuggestionToUser(testUser2);
         Assertions.assertEquals(actualList, expectedList);
     }
-
 }

@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class avgRatingManagerTest {
-    /*
-
+    /**
+     * Tests if an accurate average is given for a set of rating
      */
     @Test
     public void avgRatingManagerAverage(){

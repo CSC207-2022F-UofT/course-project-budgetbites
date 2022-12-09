@@ -22,6 +22,9 @@ public class MainMongoDBTest {
     private Restaurant restaurant;
     private Restaurant persistentRestaurant;
 
+    /**
+     * Initializes all instance attributes
+     */
     @Before
     public void init () {
         Order o1 = new Order(LocalDateTime.now().minusDays(2).toString(), "Food from East");
@@ -58,6 +61,9 @@ public class MainMongoDBTest {
         persistentRestaurant = new Restaurant("Persistent Restaurant", "Expensive", "Indian", "Dinner", 5, menu);
     }
 
+    /**
+     * Tests mongoDB methods by seeing if you can delte user, delete restaurant, save user, save restaurant
+     */
     @After
     public void teardown () {
         testDAI.deleteUser("MongoTest");
@@ -72,14 +78,20 @@ public class MainMongoDBTest {
     }
 
 
+    /**
+     * This test saves the user
+     */
     @Test
     public void saveUserTest() {
-//        Object ID is changed when object is saved on database, so we will check whether the attribute is the same
+        // Object ID is changed when object is saved on database, so we will check whether the attribute is the same
         testDAI.saveUser(user);
 
         Assertions.assertEquals(testDAI.findUserByUsername("MongoTest").getFirstName(), user.getFirstName());
     }
 
+    /**
+     * This test saves the restaurant
+     */
     @Test
     public void saveRestaurantTest() {
         testDAI.saveRestaurant(restaurant);
@@ -87,12 +99,18 @@ public class MainMongoDBTest {
         Assertions.assertEquals(testDAI.findRestaurantByRestaurantName("Mongo Test Restaurant").getRestaurantName(), restaurant.getRestaurantName());
     }
 
+    /**
+     * This test checks if user exists
+     */
     @Test
     public void userExistsTest() {
         Assertions.assertTrue(testDAI.userExists("persistentUser"));
         Assertions.assertFalse(testDAI.userExists("falseUser"));
     }
 
+    /**
+     * This test uses getUserAttribute method to get specifics of user account
+     */
     @Test
     public void getUserAttributeTest() {
         Assertions.assertEquals(testDAI.getUserAttribute("persistentUser", "username"), "persistentUser");
@@ -101,6 +119,9 @@ public class MainMongoDBTest {
         Assertions.assertEquals(testDAI.getUserAttribute("persistentUser", "password"), "persistentUser");
     }
 
+    /**
+     * This test uses getRestaurantAttribute method to get specifics of user account
+     */
     @Test
     public void getRestaurantAttributeTest() {
         Assertions.assertEquals(testDAI.getRestaurantAttribute("Persistent Restaurant", "restaurantName"), "Persistent Restaurant");
@@ -110,9 +131,12 @@ public class MainMongoDBTest {
         Assertions.assertEquals(testDAI.getRestaurantAttribute("Persistent Restaurant", "avgRating"), "5.0");
     }
 
+    /**
+     * This test gets the menu
+     */
     @Test
     public void getMenuTest() {
-//        Cannot compare the ArrayList directly because of different object ids, so we are confirming whether the list of food item names are the same
+        // Cannot compare the ArrayList directly because of different object ids, so we are confirming whether the list of food item names are the same
         ArrayList<String> localFoodNames = new ArrayList<>(
                 Arrays.asList("Chicken Shawarma", "Hummus with Pita", "Falafel Wrap", "Beef Shawarma", "Chicken Saj"));
 
@@ -124,6 +148,9 @@ public class MainMongoDBTest {
         Assertions.assertEquals(localFoodNames, mongoFoodNames);
     }
 
+    /**
+     * This test updates username attribute
+     */
     @Test
     public void updateAttributeByUsernameTest() {
         testDAI.updateAttributeByUsername("persistentUser", "firstName", "testchange");
@@ -131,22 +158,28 @@ public class MainMongoDBTest {
         Assertions.assertEquals(testDAI.getUserAttribute("persistentUser", "firstName"), "testchange");
     }
 
+    /**
+     * This tests finds past orders such as cost of last order, get past order, get total cost
+     */
     @Test
     public void findPastOrdersTest() {
         PastOrders pastOrders = testDAI.findPastOrders("persistentUser");
 
-//        From the database, we can see the cost of the last ordered is 12, and the number of orders in the map is 2
+        // From the database, we can see the cost of the last ordered is 12, and the number of orders in the map is 2
         Assertions.assertEquals(pastOrders.getCostOfLastOrdered(), 12);
         Assertions.assertEquals(pastOrders.getPastOrdersMap().size(), 2);
         Assertions.assertEquals(pastOrders.getTotalCost(), 25);
     }
 
+    /**
+     * This test adds the past order
+     */
     @Test
     public void addToPastOrdersTest() {
         testDAI.addToPastOrders("persistentUser", o3);
         PastOrders pastOrders = testDAI.findPastOrders("persistentUser");
 
-//        The new cost of last ordered is 17, and there are now 3 orders in pastOrdersMap
+        // The new cost of last ordered is 17, and there are now 3 orders in pastOrdersMap
         Assertions.assertEquals(pastOrders.getCostOfLastOrdered(), 32);
         Assertions.assertEquals(pastOrders.getPastOrdersMap().size(), 3);
         Assertions.assertEquals(pastOrders.getTotalCost(), 57);
